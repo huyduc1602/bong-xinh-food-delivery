@@ -1,0 +1,58 @@
+{
+  "name": "bong-xinh-food-delivery",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Vietnamese Food Delivery Website specializing in Trà Tắc (Lemon Tea) and Mì Đặc Biệt (Special Noodles)",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "export": "next build && next export",
+    "analyze": "cross-env ANALYZE=true next build",
+    "clean": "rm -rf .next out",
+    "setup": "chmod +x setup-git.sh && ./setup-git.sh"
+  },
+  "keywords": [
+    "vietnamese food",
+    "food delivery",
+    "tra tac",
+    "lemon tea", 
+    "mi dac biet",
+    "noodles",
+    "restaurant",
+    "nextjs",
+    "react",
+    "tailwindcss",
+    "typescript"
+  ],
+  "author": {
+    "name": "Hoàng Huy Đức",
+    "email": "contact@buihuyen.com",
+    "url": "https://github.com/hoanghuyduc"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hoanghuyduc/bong-xinh.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hoanghuyduc/bong-xinh/issues"
+  },
+  "homepage": "https://bongxinh.vercel.app",
+  "dependencies": {
+    "@react-spring/web": "^10.0.1",
+    "@tailwindcss/postcss": "^4.1.10",
+    "@types/node": "^24.0.3",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "autoprefixer": "^10.4.21",
+    "next": "^15.3.4",
+    "postcss": "^8.5.6",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-intersection-observer": "^9.16.0",
+    "tailwindcss": "^4.1.10",
+    "typescript": "^5.8.3"
+  }
+}
