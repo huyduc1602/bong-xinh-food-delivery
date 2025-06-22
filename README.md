@@ -53,8 +53,8 @@
 
 ### **Clone repository**
 ```bash
-git clone https://github.com/your-username/do-an-bui-huyen.git
-cd do-an-bui-huyen
+git clone https://github.com/huyduc1602/bong-xinh-food-delivery.git
+cd bong-xinh-food-delivery
 ```
 
 ### **Cài đặt dependencies**
@@ -76,7 +76,7 @@ Mở [http://localhost:3000](http://localhost:3000) để xem kết quả.
 ## 📁 Cấu trúc thư mục
 
 ```
-do-an-bui-huyen/
+bong-xinh-food-delivery/
 ├── public/
 │   └── images/
 │       ├── tra-tac.jpeg    # Hình ảnh trà tắc
