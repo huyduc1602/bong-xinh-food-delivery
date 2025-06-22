@@ -101,7 +101,7 @@ export default function Home() {
     // Contact info staggered animation
     const contactInfoItems = [
         { icon: '📍', text: 'An Đào, Trâu Quỳ, Gia Lâm, Hà Nội' },
-        { icon: '📞', text: '+84 123 456 789' },
+        { icon: '📞', text: '+84 972 744 027 hoặc  +84 187 098 005' },
         { icon: '✉️', text: 'contact@buihuyen.com' },
         { icon: '🕒', text: 'Mở cửa: 8:00 - 22:00 hàng ngày' }
     ];
@@ -154,7 +154,7 @@ export default function Home() {
                     </nav>
 
                     <div className="hidden md:block">
-                        <a href="tel:+84123456789" className={`btn btn-primary transition-all duration-300 ${scrolled ? 'text-sm px-4 py-2' : 'text-base px-5 py-3'
+                        <a href="tel:+84972744027" className={`btn btn-primary transition-all duration-300 ${scrolled ? 'text-sm px-4 py-2' : 'text-base px-5 py-3'
                             }`}>
                             Đặt hàng ngay
                         </a>
@@ -314,8 +314,8 @@ export default function Home() {
                             Gọi ngay để thưởng thức những món ăn ngon nhất tại Bống Xinh
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <a href="tel:+84123456789" className="bg-white text-primary px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-300">
-                                📞 Gọi ngay: +84 123 456 789
+                            <a href="tel:+84972744027" className="bg-white text-primary px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-300">
+                                📞 Gọi ngay: +84 972 744 027 hoặc  +84 187 098 005
                             </a>
                             <a href="#menu" className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-primary transition-colors duration-300">
                                 Xem thực đơn
@@ -415,7 +415,7 @@ export default function Home() {
                             <h3 className="text-xl font-bold mb-4">Liên hệ</h3>
                             <div className="space-y-2 text-gray-300">
                                 <p>📍 Đường An Đào, Trâu Quỳ, Gia Lâm, Hà Nội</p>
-                                <p>📞 +84 123 456 789</p>
+                                <p>📞 +84 972 744 027 hoặc  +84 187 098 005</p>
                                 <p>✉️ contact@buihuyen.com</p>
                                 <p>🕒 Mở cửa: 8:00 - 22:00 hàng ngày</p>
                             </div>
@@ -432,11 +432,87 @@ export default function Home() {
             <div className="fixed right-6 bottom-6 z-50">
                 <a
                     href="tel:+84123456789"
-                    className="bg-primary hover:bg-primary/90 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group flex items-center space-x-2"
+                    className="call-button bg-green-500 hover:bg-green-600 text-white w-16 h-16 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group relative overflow-hidden flex items-center justify-center"
                 >
-                    <span className="text-2xl">📞</span>
-                    <span className="hidden group-hover:block text-sm font-medium">Gọi ngay</span>
+                    {/* Ripple Effect */}
+                    <div className="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-30"></div>
+                    <div className="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-20" style={{ animationDelay: '0.5s' }}></div>
+
+                    {/* Phone Icon with perfect centering */}
+                    <svg
+                        className="w-7 h-7 text-white animate-bounce hover:animate-none group-hover:scale-110 transition-transform duration-300 relative z-10"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path d="M6.62 10.79a15.91 15.91 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.27 11.18 11.18 0 003.48.55 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.18 11.18 0 00.55 3.48 1 1 0 01-.27 1.11l-2.16 2.2z" />
+                    </svg>
+
+                    {/* Text that appears on hover */}
+                    <span className="absolute left-full ml-3 bg-green-500 text-white px-3 py-1 rounded-lg text-sm font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                        Gọi ngay
+                    </span>
                 </a>
+
+                {/* Additional CSS for custom animations */}
+                <style jsx>{`
+                    /* Shake animation for urgent attention */
+                    @keyframes shake {
+                        0%, 100% { transform: translateX(0) rotate(0deg); }
+                        25% { transform: translateX(-2px) rotate(-1deg); }
+                        50% { transform: translateX(2px) rotate(1deg); }
+                        75% { transform: translateX(-1px) rotate(-0.5deg); }
+                    }
+                    
+                    /* Enhanced ripple effect */
+                    @keyframes ripple {
+                        0% {
+                            transform: scale(1);
+                            opacity: 0.6;
+                        }
+                        100% {
+                            transform: scale(2.5);
+                            opacity: 0;
+                        }
+                    }
+                    
+                    /* Apply shake every 4 seconds */
+                    .call-button {
+                        animation: shake 0.6s ease-in-out 4s infinite;
+                    }
+                    
+                    .call-button:hover {
+                        animation: none;
+                    }
+                    
+                    /* Enhanced pulse effect */
+                    .call-button::before {
+                        content: '';
+                        position: absolute;
+                        top: -6px;
+                        left: -6px;
+                        right: -6px;
+                        bottom: -6px;
+                        border-radius: 50%;
+                        background: rgba(34, 197, 94, 0.3);
+                        animation: ripple 2.5s infinite;
+                        z-index: -1;
+                    }
+                    
+                    /* Additional ring effect */
+                    .call-button::after {
+                        content: '';
+                        position: absolute;
+                        top: -10px;
+                        left: -10px;
+                        right: -10px;
+                        bottom: -10px;
+                        border-radius: 50%;
+                        background: rgba(34, 197, 94, 0.2);
+                        animation: ripple 2.5s infinite;
+                        animation-delay: 0.5s;
+                        z-index: -2;
+                    }
+                `}</style>
             </div>
 
             {/* Image Modal */}
