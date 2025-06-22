@@ -42,18 +42,32 @@ export default function Home() {
     });
 
     // Hero animations with enhanced timing
-    const heroAnimation = useSpring({
+    const heroTitleAnimation = useSpring({
         opacity: heroInView ? 1 : 0,
         transform: heroInView ? 'translateY(0px)' : 'translateY(50px)',
-        config: { mass: 1, tension: 280, friction: 60 },
+        config: { mass: 1, tension: 200, friction: 50 },
         delay: 200
+    });
+
+    const heroSubtitleAnimation = useSpring({
+        opacity: heroInView ? 1 : 0,
+        transform: heroInView ? 'translateY(0px)' : 'translateY(30px)',
+        config: { mass: 1, tension: 200, friction: 50 },
+        delay: 800
+    });
+
+    const heroDescriptionAnimation = useSpring({
+        opacity: heroInView ? 1 : 0,
+        transform: heroInView ? 'translateY(0px)' : 'translateY(30px)',
+        config: { mass: 1, tension: 200, friction: 50 },
+        delay: 1200
     });
 
     const heroButtonsAnimation = useSpring({
         opacity: heroInView ? 1 : 0,
         transform: heroInView ? 'translateY(0px)' : 'translateY(30px)',
-        config: { mass: 1, tension: 280, friction: 60 },
-        delay: 600
+        config: { mass: 1, tension: 200, friction: 50 },
+        delay: 1600
     });
 
     // Menu items animation trail
@@ -96,7 +110,7 @@ export default function Home() {
         opacity: contactInView ? 1 : 0,
         transform: contactInView ? 'translateX(0px)' : 'translateX(-20px)',
         config: { mass: 1, tension: 280, friction: 60 },
-        delay: contactInView ? 400 : 0
+        delay: 400
     });
 
     const openModal = (src: string, alt: string) => {
@@ -113,8 +127,8 @@ export default function Home() {
         <main>
             {/* Header */}
             <header className={`sticky top-0 z-40 transition-all duration-300 ${scrolled
-                    ? 'bg-white/95 backdrop-blur-lg shadow-lg py-3'
-                    : 'bg-white/80 backdrop-blur-md shadow-sm py-4'
+                ? 'bg-white/95 backdrop-blur-lg shadow-lg py-3'
+                : 'bg-white/80 backdrop-blur-md shadow-sm py-4'
                 }`}>
                 <div className="max-w-7xl mx-auto px-4 flex items-center justify-between">
                     <div className="flex items-center">
@@ -149,24 +163,45 @@ export default function Home() {
             </header>
 
             {/* Hero Section */}
-            <section id="home" ref={heroRef} className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/10 to-secondary/10">
-                <div className="max-w-7xl mx-auto px-4 text-center">
-                    <animated.div style={heroAnimation} className="max-w-4xl mx-auto">
-                        <h1 className="text-5xl md:text-7xl font-bold text-secondary mb-6">
-                            Bống <span className="text-primary">Xinh</span>
-                        </h1>
-                        <p className="text-xl md:text-2xl text-gray-600 mb-8">
-                            Khám phá hương vị đậm đà của trà tắc và mì truyền thống Việt Nam
-                        </p>
-                    </animated.div>
+            <section id="home" ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
+                {/* Background */}
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-400 via-yellow-400 to-green-400"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+
+                {/* Floating Elements */}
+                <div className="absolute inset-0 pointer-events-none">
+                    <div className="absolute top-20 left-10 w-16 h-16 bg-yellow-300 rounded-full opacity-70 animate-bounce"></div>
+                    <div className="absolute top-32 right-16 w-12 h-16 bg-green-400 rounded-full opacity-70 animate-pulse"></div>
+                    <div className="absolute bottom-32 left-20 w-10 h-10 bg-orange-300 rounded-full opacity-70 animate-ping"></div>
+                </div>
+
+                {/* Content */}
+                <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
+                    <animated.h1 style={heroTitleAnimation} className="text-5xl md:text-7xl font-bold mb-6">
+                        Mì & Trà Tắc
+                    </animated.h1>
+                    <animated.h2 style={heroSubtitleAnimation} className="text-xl md:text-2xl mb-8 opacity-90">
+                        Hương vị truyền thống, cảm xúc hiện đại
+                    </animated.h2>
+                    <animated.p style={heroDescriptionAnimation} className="text-lg md:text-xl mb-10 opacity-80 leading-relaxed">
+                        Thưởng thức tô mì nóng hổi đậm đà cùng ly trà tắc mát lạnh tươi ngon.
+                        Nơi gặp gỡ của hương vị Việt Nam trong từng ngụm, từng miếng.
+                    </animated.p>
                     <animated.div style={heroButtonsAnimation} className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <a href="#menu" className="btn btn-primary text-lg px-8 py-4">
-                            Xem thực đơn
+                        <a href="#menu" className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105">
+                            Xem Thực Đơn
                         </a>
-                        <a href="tel:+84123456789" className="btn btn-secondary text-lg px-8 py-4">
-                            Gọi đặt hàng
+                        <a href="tel:+84123456789" className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105">
+                            Đặt Hàng Ngay
                         </a>
                     </animated.div>
+                </div>
+
+                {/* Food Icons */}
+                <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex gap-6">
+                    <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-2xl animate-bounce">🍜</div>
+                    <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-2xl animate-bounce" style={{ animationDelay: '0.3s' }}>🧋</div>
+                    <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-2xl animate-bounce" style={{ animationDelay: '0.6s' }}>🍋</div>
                 </div>
             </section>
 
@@ -379,7 +414,7 @@ export default function Home() {
                         <div>
                             <h3 className="text-xl font-bold mb-4">Liên hệ</h3>
                             <div className="space-y-2 text-gray-300">
-                                <p>📍 123 Đường ABC, Quận 1, TP.HCM</p>
+                                <p>📍 Đường An Đào, Trâu Quỳ, Gia Lâm, Hà Nội</p>
                                 <p>📞 +84 123 456 789</p>
                                 <p>✉️ contact@buihuyen.com</p>
                                 <p>🕒 Mở cửa: 8:00 - 22:00 hàng ngày</p>
