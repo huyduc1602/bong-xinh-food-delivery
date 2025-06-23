@@ -8,6 +8,7 @@ import { useInView } from 'react-intersection-observer';
 export default function Home() {
     const [selectedImage, setSelectedImage] = useState<{ src: string, alt: string } | null>(null);
     const [scrolled, setScrolled] = useState(false);
+    const [showPhonePopup, setShowPhonePopup] = useState(false);
 
     // Handle scroll for header background
     useEffect(() => {
@@ -111,9 +112,7 @@ export default function Home() {
         transform: contactInView ? 'translateX(0px)' : 'translateX(-20px)',
         config: { mass: 1, tension: 280, friction: 60 },
         delay: 400
-    });
-
-    const openModal = (src: string, alt: string) => {
+    });    const openModal = (src: string, alt: string) => {
         setSelectedImage({ src, alt });
         document.body.style.overflow = 'hidden';
     };
@@ -122,6 +121,23 @@ export default function Home() {
         setSelectedImage(null);
         document.body.style.overflow = 'unset';
     };
+
+    // Phone popup functions / Hàm xử lý popup số điện thoại
+    const openPhonePopup = () => {
+        setShowPhonePopup(true);
+        document.body.style.overflow = 'hidden';
+    };
+
+    const closePhonePopup = () => {
+        setShowPhonePopup(false);
+        document.body.style.overflow = 'unset';
+    };
+
+    // Phone numbers data / Dữ liệu số điện thoại
+    const phoneNumbers = [
+        { number: '+84 972 744 027', label: 'Hotline 1' },
+        { number: '+84 187 098 005', label: 'Hotline 2' }
+    ];
 
     return (
         <main>
@@ -151,13 +167,14 @@ export default function Home() {
                         <a href="#contact" className="text-dark hover:text-primary transition-colors">
                             Liên hệ
                         </a>
-                    </nav>
-
-                    <div className="hidden md:block">
-                        <a href="tel:+84972744027" className={`btn btn-primary transition-all duration-300 ${scrolled ? 'text-sm px-4 py-2' : 'text-base px-5 py-3'
-                            }`}>
+                    </nav>                    <div className="hidden md:block">
+                        <button 
+                            onClick={openPhonePopup}
+                            className={`btn btn-primary transition-all duration-300 ${scrolled ? 'text-sm px-4 py-2' : 'text-base px-5 py-3'
+                            }`}
+                        >
                             Đặt hàng ngay
-                        </a>
+                        </button>
                     </div>
                 </div>
             </header>
@@ -186,21 +203,23 @@ export default function Home() {
                     <animated.p style={heroDescriptionAnimation} className="text-lg md:text-xl mb-10 opacity-80 leading-relaxed">
                         Thưởng thức tô mì nóng hổi đậm đà cùng ly trà tắc mát lạnh tươi ngon.
                         Nơi gặp gỡ của hương vị Việt Nam trong từng ngụm, từng miếng.
-                    </animated.p>
-                    <animated.div style={heroButtonsAnimation} className="flex flex-col sm:flex-row gap-4 justify-center">
+                    </animated.p>                    <animated.div style={heroButtonsAnimation} className="flex flex-col sm:flex-row gap-4 justify-center">
                         <a href="#menu" className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105">
                             Xem Thực Đơn
                         </a>
-                        <a href="tel:+84123456789" className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105">
+                        <button 
+                            onClick={openPhonePopup}
+                            className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105"
+                        >
                             Đặt Hàng Ngay
-                        </a>
+                        </button>
                     </animated.div>
                 </div>
 
                 {/* Food Icons */}
                 <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex gap-6">
                     <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-2xl animate-bounce">🍜</div>
-                    <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-2xl animate-bounce" style={{ animationDelay: '0.3s' }}>🧋</div>
+                    <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-2xl animate-bounce" style={{ animationDelay: '0.3s' }}>🥤</div>
                     <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-2xl animate-bounce" style={{ animationDelay: '0.6s' }}>🍋</div>
                 </div>
             </section>
@@ -312,11 +331,13 @@ export default function Home() {
                         </h2>
                         <p className="text-xl mb-8 text-white/80">
                             Gọi ngay để thưởng thức những món ăn ngon nhất tại Bống Xinh
-                        </p>
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <a href="tel:+84972744027" className="bg-white text-primary px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-300">
-                                📞 Gọi ngay: +84 972 744 027 hoặc  +84 187 098 005
-                            </a>
+                        </p>                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                            <button 
+                                onClick={openPhonePopup}
+                                className="bg-white text-primary px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-300"
+                            >
+                                📞 Gọi ngay: +84 972 744 027 hoặc +84 187 098 005
+                            </button>
                             <a href="#menu" className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-primary transition-colors duration-300">
                                 Xem thực đơn
                             </a>
@@ -426,12 +447,10 @@ export default function Home() {
                         <p>&copy; 2024 Bống Xinh. Tất cả quyền được bảo lưu.</p>
                     </div>
                 </div>
-            </footer>
-
-            {/* Call Now Button - Fixed Position */}
+            </footer>            {/* Call Now Button - Fixed Position */}
             <div className="fixed right-6 bottom-6 z-50">
-                <a
-                    href="tel:+84123456789"
+                <button
+                    onClick={openPhonePopup}
                     className="call-button bg-green-500 hover:bg-green-600 text-white w-16 h-16 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group relative overflow-hidden flex items-center justify-center"
                 >
                     {/* Ripple Effect */}
@@ -447,11 +466,10 @@ export default function Home() {
                         <path d="M6.62 10.79a15.91 15.91 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.27 11.18 11.18 0 003.48.55 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.18 11.18 0 00.55 3.48 1 1 0 01-.27 1.11l-2.16 2.2z" />
                     </svg>
 
-                    {/* Text that appears on hover */}
-                    <span className="absolute left-full ml-3 bg-green-500 text-white px-3 py-1 rounded-lg text-sm font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                    {/* Text that appears on hover */}                    <span className="absolute left-full ml-3 bg-green-500 text-white px-3 py-1 rounded-lg text-sm font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
                         Gọi ngay
                     </span>
-                </a>
+                </button>
 
                 {/* Additional CSS for custom animations */}
                 <style jsx>{`
@@ -547,6 +565,85 @@ export default function Home() {
                         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white/90 text-gray-800 px-6 py-3 rounded-full font-semibold shadow-lg">
                             {selectedImage.alt}
                         </div>
+                    </div>
+                </div>            )}
+
+            {/* Phone Numbers Popup / Popup số điện thoại */}
+            {showPhonePopup && (
+                <div
+                    className="fixed inset-0 z-[9999] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
+                    onClick={closePhonePopup}
+                >                    <div 
+                        className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl transform transition-all duration-300 scale-100"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        {/* Header */}
+                        <div className="text-center mb-6">
+                            <div className="mx-auto w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mb-4">
+                                <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M6.62 10.79a15.91 15.91 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.27 11.18 11.18 0 003.48.55 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.18 11.18 0 00.55 3.48 1 1 0 01-.27 1.11l-2.16 2.2z" />
+                                </svg>
+                            </div>
+                            <h3 className="text-2xl font-bold text-gray-800 mb-2">Chọn số điện thoại</h3>
+                            <p className="text-gray-600">Gọi ngay để đặt hàng nhanh chóng</p>
+                        </div>
+
+                        {/* Phone Numbers */}
+                        <div className="space-y-4 mb-6">
+                            {phoneNumbers.map((phone, index) => (
+                                <a
+                                    key={index}
+                                    href={`tel:${phone.number.replace(/\s/g, '')}`}
+                                    className="block w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white p-4 rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-105 group"
+                                    onClick={closePhonePopup}
+                                >
+                                    <div className="flex items-center justify-between">
+                                        <div className="flex items-center space-x-3">
+                                            <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                                                <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M6.62 10.79a15.91 15.91 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.27 11.18 11.18 0 003.48.55 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.18 11.18 0 00.55 3.48 1 1 0 01-.27 1.11l-2.16 2.2z" />
+                                                </svg>
+                                            </div>
+                                            <div>
+                                                <div className="font-semibold text-lg">{phone.number}</div>
+                                                <div className="text-white/80 text-sm">{phone.label}</div>
+                                            </div>
+                                        </div>
+                                        <svg className="w-5 h-5 text-white/60 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                        </svg>
+                                    </div>
+                                </a>
+                            ))}
+                        </div>
+
+                        {/* Additional Info */}
+                        <div className="bg-gray-50 rounded-xl p-4 mb-6">
+                            <div className="flex items-center space-x-2 text-gray-600 text-sm">
+                                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                                </svg>
+                                <span>Thời gian hoạt động: 8:00 - 22:00 hàng ngày</span>
+                            </div>
+                        </div>
+
+                        {/* Close Button */}
+                        <button
+                            onClick={closePhonePopup}
+                            className="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 py-3 rounded-xl font-medium transition-colors duration-300"
+                        >
+                            Đóng
+                        </button>
+
+                        {/* Close X Button */}
+                        <button
+                            onClick={closePhonePopup}
+                            className="absolute top-4 right-4 w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center text-gray-500 hover:text-gray-700 transition-colors duration-300"
+                        >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
                     </div>
                 </div>
             )}
